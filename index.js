@@ -10,6 +10,9 @@ conectarDB();
 //Puerto
 const PORT = process.env.PORT || 4000;
 
+//Importar Rutas
+app.use('/api/usuarios', require('./routes/usuarios'));
+
 //Pagina principal
 app.get('/', (req, res) =>{
     res.send('Hola mundo')
