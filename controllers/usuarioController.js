@@ -1,4 +1,5 @@
-const Usuario = require('../models/Usuario')
+const Usuario = require('../models/Usuario');
+const bcryptjs = require('bcryptjs')
 
 exports.crearUsuario = async (req, res) => {
 
@@ -15,6 +16,10 @@ exports.crearUsuario = async (req, res) => {
 
         // crea el nuevo usuario
         user = new Usuario(req.body);
+
+        //Hashear el password
+        const salt = await bcryptjs.genSalt(10);
+        user.password = await bcryptjs.hash(password, salt);
 
         //Guardar usuario
         await user.save();
