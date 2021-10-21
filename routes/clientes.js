@@ -17,9 +17,18 @@ router.post('/',
     clienteController.crearCliente
 );
 
+
+//Obtener todos los pacientes
 router.get('/',
     auth,
     clienteController.obtenerClientes
+)
+
+
+//Eliminar un paciente
+router.delete('/:id',
+    auth,
+    clienteController.eliminarCliente
 )
 
 

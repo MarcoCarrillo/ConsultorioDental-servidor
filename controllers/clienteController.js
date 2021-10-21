@@ -39,3 +39,30 @@ exports.obtenerClientes = async (req, res) => {
     }
 }
 
+
+//Eliminar un cliente por id
+exports.eliminarCliente = async (req, res) => {
+    
+    try {
+        //Revisar el id
+        let cliente = await Cliente.findById(req.params.id);
+
+        //Si el paciente no existe
+        if(!cliente) {
+            return res.status(404).send({msg: 'Paciente no encontrado'})
+        }
+
+        //Verificar el creador del paciente
+        if(cliente.creador.toString() !== req.user.id) {
+            return res.status(401).send({msg: 'No autorizado'})
+        }
+
+        //Eliminar el paciente
+        await Cliente.findOneAndRemove({_id: req.params.id});
+        res.json({msg: 'El paciente se eliminó correctamente'});
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({msg: 'Error en el servidor'})
+    }
+}
