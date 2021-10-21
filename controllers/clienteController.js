@@ -1,6 +1,13 @@
 const Cliente = require('../models/Cliente');
+const { validationResult } = require('express-validator')
 
 exports.crearCliente = async (req, res) => {
+
+    //Revisar si hay errores con express validator
+    const errores = validationResult(req);
+    if( !errores.isEmpty() ){
+        res.status(400).json({errores: errores.array()});
+    }
 
     try {
         //Crear un nuevo paciente
