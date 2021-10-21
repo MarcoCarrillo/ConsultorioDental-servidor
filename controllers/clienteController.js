@@ -19,9 +19,23 @@ exports.crearCliente = async (req, res) => {
 
         cliente.save();
         res.json(cliente);
-        console.log(cliente);
+        // console.log(cliente);
     } catch (error) {
         console.log(error);
         res.status(500).send('Hubo un error');
     }
 }
+
+
+//Obtiene todos los pacientes del usuario actual
+exports.obtenerClientes = async (req, res) => {
+    try {
+        // console.log(req.user);
+        const clientes = await Cliente.find({ creador: req.user.id }).sort({creado: -1});
+        res.json({clientes})
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error');
+    }
+}
+

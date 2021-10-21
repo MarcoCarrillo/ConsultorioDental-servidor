@@ -19,7 +19,7 @@ router.post('/',
 
 router.get('/',
     auth,
-    clienteController.crearCliente
+    clienteController.obtenerClientes
 )
 
 
