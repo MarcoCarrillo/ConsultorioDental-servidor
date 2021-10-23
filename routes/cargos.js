@@ -16,4 +16,10 @@ router.post('/',
     cargoController.crearCargo
 );
 
+//Obtener los cargos por clientes
+router.get('/',
+    auth,
+    cargoController.obtenerCargos
+);
+
 module.exports = router;
