@@ -46,6 +46,7 @@ exports.eliminarCliente = async (req, res) => {
     try {
         //Revisar el id
         let cliente = await Cliente.findById(req.params.id);
+        // console.log(req);
 
         //Si el paciente no existe
         if(!cliente) {
