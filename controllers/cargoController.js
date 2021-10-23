@@ -57,7 +57,44 @@ exports.obtenerCargos = async (req, res) => {
 
         //Obtener los cargos por clientes 
         const cargos = await Cargo.find({ cliente });
-        res.json(cargos);
+        res.json({cargos});
+
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error')
+    }
+}
+
+
+//Actualizar un cargo
+exports.actualizarCargo = async (req, res) => {
+    try {
+        //Extraer el cliente y comprobar si existe
+        const {cliente, concepto, cantidad} = req.body;
+
+        const existeCliente = await Cliente.findById(cliente);
+        
+        //Revisar si el cargo existe
+        let cargo = await Cargo.findById(req.params.id);
+        if(!cargo){
+            return res.status(404).json({ msg: 'Cargo no encontrado' })
+        }
+
+        //Revisar si el cliente pertenece al usuario autenticado
+        if(existeCliente.creador.toString() !== req.user.id) {
+            return res.status(401).send({msg: 'No autorizado'})
+        }
+
+        //Crear un objeto con el nuevo cargo
+        const nuevoCargo = {};
+
+        if(concepto) nuevoCargo.concepto = concepto;
+        if(cantidad) nuevoCargo.cantidad = cantidad;
+
+        //Guardar el cargo actualizado
+        cargo = await Cargo.findOneAndUpdate({_id: req.params.id}, nuevoCargo, {new: true});
+        res.json({cargo})
 
 
     } catch (error) {

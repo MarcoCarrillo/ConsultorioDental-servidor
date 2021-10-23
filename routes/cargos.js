@@ -22,4 +22,10 @@ router.get('/',
     cargoController.obtenerCargos
 );
 
+//Actualizar cargos 
+router.put('/:id',
+    auth,
+    cargoController.actualizarCargo
+)
+
 module.exports = router;
