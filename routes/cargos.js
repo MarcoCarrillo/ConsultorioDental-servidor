@@ -10,7 +10,8 @@ router.post('/',
     auth,
     [
         check('concepto', 'El concepto de cargo es obligatorio').not().isEmpty(),
-        check('cantidad', 'La cantidad de cargo es obligatoria').not().isEmpty()
+        check('cantidad', 'La cantidad de cargo es obligatoria').not().isEmpty(),
+        check('cliente', 'El cliente es obligatorio').not().isEmpty()
     ],
     cargoController.crearCargo
 );
