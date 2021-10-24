@@ -26,6 +26,12 @@ router.get('/',
 router.put('/:id',
     auth,
     cargoController.actualizarCargo
+);
+
+//Eliminar un cargo
+router.delete('/:id',
+    auth,
+    cargoController.eliminarCargo
 )
 
 module.exports = router;

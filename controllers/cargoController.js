@@ -102,3 +102,34 @@ exports.actualizarCargo = async (req, res) => {
         res.status(500).send('Hubo un error')
     }
 }
+
+
+//Eliminar un cargo
+exports.eliminarCargo = async (req, res) => {
+    try {
+        //Extraer el cliente y comprobar si existe
+        const {cliente} = req.body;
+
+        const existeCliente = await Cliente.findById(cliente);
+        
+        //Revisar si el cargo existe
+        let cargo = await Cargo.findById(req.params.id);
+        if(!cargo){
+            return res.status(404).json({ msg: 'Cargo no encontrado' })
+        }
+
+        //Revisar si el cliente pertenece al usuario autenticado
+        if(existeCliente.creador.toString() !== req.user.id) {
+            return res.status(401).send({msg: 'No autorizado'})
+        }
+
+        //Eliminar
+        await Cargo.findOneAndRemove({_id : req.params.id});
+        res.json({msg: 'Cargo eliminado'})
+
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error')
+    }
+}
