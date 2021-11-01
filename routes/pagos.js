@@ -22,4 +22,9 @@ router.get('/',
     pagoController.obtenerPagos
 );
 
+//Actualizar pagos 
+router.put('/:id',
+    pagoController.actualizarPago
+)
+
 module.exports = router;

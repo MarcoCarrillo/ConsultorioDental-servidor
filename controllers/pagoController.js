@@ -63,3 +63,31 @@ exports.obtenerPagos = async (req, res) => {
         res.status(500).send('Hubo un error')
     }
 }
+
+
+//Actualizar un pago
+exports.actualizarPago = async (req, res) => {
+    try {
+         //Extraer el concepto y cantidad para poder editarlos
+         const {concepto, cantidad} = req.body;
+
+         //Revisar si el pago existe
+         let pago = await Pago.findById(req.params.id);
+         if(!pago) {
+            return res.status(404).send({msg: 'Pago no encontrado'})
+         }
+ 
+         //Nuevo objeto con la nueva informacion 
+         const nuevoPago = {};
+         if (concepto) nuevoPago.concepto = concepto;
+         if (cantidad) nuevoPago.cantidad = cantidad;
+
+         //Guardar pago editado
+         pago = await Pago.findOneAndUpdate({_id: req.params.id}, nuevoPago, {new: true});
+         res.json({pago})
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error')
+    }
+}
