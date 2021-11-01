@@ -16,4 +16,10 @@ router.post('/',
     pagoController.crearPago
 );
 
+//Obtener los pagos por cliente
+router.get('/',
+    auth,
+    pagoController.obtenerPagos
+);
+
 module.exports = router;
