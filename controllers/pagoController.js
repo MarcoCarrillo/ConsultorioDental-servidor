@@ -91,3 +91,25 @@ exports.actualizarPago = async (req, res) => {
         res.status(500).send('Hubo un error')
     }
 }
+
+//Eliminar un pago
+exports.eliminarPago = async (req, res) => {
+    try {
+        
+        
+        //Revisar si el pago existe
+        let pago = await Pago.findById(req.params.id);
+        if(!pago){
+            return res.status(404).json({ msg: 'Pago no encontrado' })
+        }
+
+
+        //Eliminar
+        await Pago.findOneAndRemove({_id: req.params.id});
+        res.json({msg: 'Pago eliminado'})
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error');
+    }
+}

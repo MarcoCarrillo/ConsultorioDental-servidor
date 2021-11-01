@@ -25,6 +25,10 @@ router.get('/',
 //Actualizar pagos 
 router.put('/:id',
     pagoController.actualizarPago
-)
+);
+
+router.delete('/:id',
+    pagoController.eliminarPago
+); 
 
 module.exports = router;
