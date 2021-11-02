@@ -19,7 +19,7 @@ exports.crearUsuario = async (req, res) => {
         //Revisar que el usuario sea unico
         let user = await Usuario.findOne({ usuario });
         if(user) {
-            return res.status(400).json({ msg: 'El usuario ya existe' });
+            return res.status(400).json({ msg: 'El nombre de usuario ya existe.' });
         }
 
         // crea el nuevo usuario
