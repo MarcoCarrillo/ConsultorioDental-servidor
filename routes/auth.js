@@ -8,10 +8,6 @@ const auth = require('../middleware/auth');
 //Iniciar sesion
 // api/auth
 router.post('/', 
-    [
-        check('usuario', 'El usuario es obligatorio').not().isEmpty(),
-        check('password', 'El password debe ser minimo de 6 caracteres').isLength({min: 6})
-    ],
     authController.autenticarUsuario
 );
 
