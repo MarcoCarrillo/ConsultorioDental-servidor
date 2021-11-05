@@ -43,7 +43,8 @@ exports.obtenerCargos = async (req, res) => {
 
     try {
         //Extraer el cliente y comprobar si existe
-        const {cliente} = req.body;
+        const {cliente} = req.query;
+        // console.log(req.query);
 
         const existeCliente = await Cliente.findById(cliente);
         if(!existeCliente) {
