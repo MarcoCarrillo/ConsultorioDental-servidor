@@ -109,7 +109,7 @@ exports.actualizarCargo = async (req, res) => {
 exports.eliminarCargo = async (req, res) => {
     try {
         //Extraer el cliente y comprobar si existe
-        const {cliente} = req.body;
+        const {cliente} = req.query;
 
         const existeCliente = await Cliente.findById(cliente);
         
