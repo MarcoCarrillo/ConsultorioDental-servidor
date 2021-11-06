@@ -72,7 +72,7 @@ exports.obtenerCargos = async (req, res) => {
 exports.actualizarCargo = async (req, res) => {
     try {
         //Extraer el cliente y comprobar si existe
-        const {cliente, concepto, cantidad} = req.body;
+        const {cliente, concepto, cantidad, fecha} = req.body;
 
         const existeCliente = await Cliente.findById(cliente);
         
@@ -90,8 +90,9 @@ exports.actualizarCargo = async (req, res) => {
         //Crear un objeto con el nuevo cargo
         const nuevoCargo = {};
 
-        if(concepto) nuevoCargo.concepto = concepto;
-        if(cantidad) nuevoCargo.cantidad = cantidad;
+        nuevoCargo.concepto = concepto;
+        nuevoCargo.cantidad = cantidad;
+        nuevoCargo.fecha = fecha;
 
         //Guardar el cargo actualizado
         cargo = await Cargo.findOneAndUpdate({_id: req.params.id}, nuevoCargo, {new: true});
