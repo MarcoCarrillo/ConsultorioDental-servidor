@@ -11,6 +11,11 @@ const PagoSchema = mongoose.Schema({
         required: true,
         trim: true
     },
+    fecha: {
+        type: String,
+        required: true,
+        trim: true
+    },
     cliente: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Cliente'

@@ -42,8 +42,8 @@ exports.obtenerPagos = async (req, res) => {
      
     try {
         //Extraer el cliente y comprobar si existe
-        const {cliente} = req.body;
-
+        const {cliente} = req.query;
+        
         const existeCliente = await Cliente.findById(cliente);
         if(!existeCliente) {
             return res.status(404).json({ msg: 'Cliente no encontrado' })
