@@ -43,7 +43,7 @@ exports.obtenerPagos = async (req, res) => {
     try {
         //Extraer el cliente y comprobar si existe
         const {cliente} = req.query;
-        
+
         const existeCliente = await Cliente.findById(cliente);
         if(!existeCliente) {
             return res.status(404).json({ msg: 'Cliente no encontrado' })
@@ -95,7 +95,10 @@ exports.actualizarPago = async (req, res) => {
 //Eliminar un pago
 exports.eliminarPago = async (req, res) => {
     try {
-        
+        //Extraer el cliente y comprobar si existe
+        const {cliente} = req.query;
+
+        const existeCliente = await Cliente.findById(cliente);
         
         //Revisar si el pago existe
         let pago = await Pago.findById(req.params.id);
@@ -103,6 +106,10 @@ exports.eliminarPago = async (req, res) => {
             return res.status(404).json({ msg: 'Pago no encontrado' })
         }
 
+        //Revisar si el cliente pertenece al usuario autenticado
+        if(existeCliente.creador.toString() !== req.user.id) {
+            return res.status(401).send({msg: 'No autorizado'})
+        }
 
         //Eliminar
         await Pago.findOneAndRemove({_id: req.params.id});

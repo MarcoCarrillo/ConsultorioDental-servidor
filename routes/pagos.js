@@ -24,10 +24,12 @@ router.get('/',
 
 //Actualizar pagos 
 router.put('/:id',
+    auth,
     pagoController.actualizarPago
 );
 
 router.delete('/:id',
+    auth,
     pagoController.eliminarPago
 ); 
 
