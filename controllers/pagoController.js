@@ -69,7 +69,7 @@ exports.obtenerPagos = async (req, res) => {
 exports.actualizarPago = async (req, res) => {
     try {
          //Extraer el concepto y cantidad para poder editarlos
-         const {concepto, cantidad} = req.body;
+         const {concepto, cantidad, fecha} = req.body;
 
          //Revisar si el pago existe
          let pago = await Pago.findById(req.params.id);
@@ -79,8 +79,9 @@ exports.actualizarPago = async (req, res) => {
  
          //Nuevo objeto con la nueva informacion 
          const nuevoPago = {};
-         if (concepto) nuevoPago.concepto = concepto;
-         if (cantidad) nuevoPago.cantidad = cantidad;
+         nuevoPago.concepto = concepto;
+         nuevoPago.cantidad = cantidad;
+         nuevoPago.fecha = fecha;
 
          //Guardar pago editado
          pago = await Pago.findOneAndUpdate({_id: req.params.id}, nuevoPago, {new: true});
